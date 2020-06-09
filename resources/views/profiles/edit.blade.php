@@ -1,4 +1,3 @@
-@extends('layouts.master')
-
-@section('content')
-@endsection
+<x-app>
+    Edit the profile
+</x-app>
