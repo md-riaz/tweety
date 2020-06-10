@@ -15,7 +15,11 @@ class User extends Authenticatable {
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username',
+        'name',
+        'avatar',
+        'email',
+        'password',
     ];
 
     /**
@@ -37,9 +41,15 @@ class User extends Authenticatable {
     ];
 
     /* get avatar of the user */
-    public function getAvatarAttribute()
+    public function getAvatarAttribute($value)
     {
-        return "https://i.pravatar.cc/200?u=" . $this->email;
+        return asset($value ? '/storage/' . $value : '/images/default-avatar.jpg');
+    }
+
+    /* when storing or updating database, password should always Hashed */
+    public function setPasswordAttribute($value)
+    {
+        return $this->attributes['password'] = bcrypt($value);
     }
 
     /* get users timeline */
@@ -53,8 +63,9 @@ class User extends Authenticatable {
 
         return Tweet::whereIn('user_id', $friends)
             ->orWhere('user_id', $this->id)
+            ->withLikes()
             ->latest()
-            ->get();
+            ->paginate(50);
     }
 
     /* get user tweets */

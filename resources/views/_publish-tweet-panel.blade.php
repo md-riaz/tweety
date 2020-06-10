@@ -7,7 +7,7 @@
             name="body"
             id="body"
             class="w-full"
-
+            required
         ></textarea>
 
         <hr class="my-4">
@@ -16,7 +16,7 @@
         <p class="text-red-500 text-sm mb-4">{{ $message }}</p>
         @enderror
 
-        <footer class="flex justify-between">
+        <footer class="flex justify-between items-center">
             <img
                 src="{{ auth()->user()->avatar }}"
                 alt="your avatar"
@@ -25,12 +25,7 @@
                 height="50"
             >
 
-            <button
-                type="submit"
-                class="bg-blue-500 rounded-lg shadow px-6 text-white"
-            >
-                Publish
-            </button>
+            <x-button></x-button>
         </footer>
 
     </form>

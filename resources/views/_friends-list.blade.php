@@ -1,8 +1,8 @@
-<div class="py-4 px-6">
+<div class="bg-blue-100 py-4 px-6 border border-gray-300 rounded-lg">
     <h3 class="font-bold text-xl mb-4">Following</h3>
     <ul>
-        @foreach(auth()->user()->follows as $user )
-            <li class="mb-4">
+        @forelse(current_user()->follows as $user )
+            <li class="{{ $loop->last ? '' : 'mb-4'}}">
                 <div>
                     <a href="{{ route('profile', $user) }}" class="flex items-center text-sm">
                         <img
@@ -16,6 +16,8 @@
                         {{ $user->name }}</a>
                 </div>
             </li>
-        @endforeach
+        @empty
+            <li>No friend's yet!</li>
+        @endforelse
     </ul>
 </div>

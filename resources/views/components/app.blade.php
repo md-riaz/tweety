@@ -11,7 +11,7 @@
                     {{ $slot }}
                 </div>
                 @auth
-                    <div class="lg:w-1/6 bg-blue-100 rounded-lg" style="height: fit-content;">
+                    <div class="lg:w-1/6" style="height: fit-content;">
                         @include('_friends-list')
                     </div>
                 @endauth
