@@ -11,7 +11,10 @@ class ProfilesController extends Controller {
     {
         return view('profiles.show', [
             'user'   => $user,
-            'tweets' => $user->tweets()->paginate(50)
+            'tweets' => $user
+                ->tweets()
+                ->withLikes()
+                ->paginate(50)
         ]);
     }
 
@@ -35,7 +38,7 @@ class ProfilesController extends Controller {
                 Rule::unique('users')->ignore($user)
             ],
             'name'     => ['string', 'required', 'max:255'],
-            'avatar'   => ['file'],
+            'avatar'   => ['image'],
             'email'    => [
                 'string',
                 'required',
